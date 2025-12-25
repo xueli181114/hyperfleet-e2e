@@ -1,0 +1,62 @@
+# HyperFleet E2E Test Configuration
+api:
+  baseURL: "http://localhost:8080"
+  authToken: ""  # Set via HYPERFLEET_AUTH_TOKEN environment variable
+  timeout: "30s"
+
+test:
+  featurePath: "features"
+  outputFormat: "pretty"  # Options: pretty, junit, json, cucumber
+  concurrency: 1
+  randomize: false
+  stopOnFailure: false
+  strict: false
+  noColors: false
+  debugMode: false
+
+# Default filter settings
+filters:
+  version: ""      # e.g., "v1.0", "v1.1"
+  component: ""    # e.g., "cluster", "nodepool", "adapter"
+  action: ""       # e.g., "create", "update", "delete"
+  category: ""     # e.g., "happy-path", "failure", "validation"
+  provider: ""     # e.g., "gcp", "aws", "azure"
+  environment: ""  # e.g., "mvp", "post-mvp"
+  testID: ""       # e.g., "e2e-001", "e2e-fail-002"
+  customTags: ""   # Custom Gherkin tag expression
+
+# Test environment settings
+environment:
+  # Cluster settings for test scenarios
+  cluster:
+    defaultProvider: "GCP"
+    defaultRegion: "us-east1"
+    cleanupTimeout: "10m"
+
+  # NodePool settings
+  nodepool:
+    defaultMachineType: "n1-standard-2"
+    defaultReplicas: 1
+
+  # Timeouts for various operations
+  timeouts:
+    clusterCreation: "15m"
+    nodepoolCreation: "10m"
+    adapterExecution: "5m"
+    apiResponse: "30s"
+
+# Reporting configuration
+reporting:
+  outputDir: "test-results"
+  generateHTML: true
+  generateJUnit: true
+  generateJSON: true
+  includeScreenshots: false  # For future UI testing
+
+# Advanced settings
+advanced:
+  retryAttempts: 3
+  retryDelay: "5s"
+  parallelExecution: false
+  resourceCleanup: true
+  logLevel: "info"  # Options: debug, info, warn, error
